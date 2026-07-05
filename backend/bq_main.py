@@ -5,7 +5,7 @@ Same API as main.py, but reads data from BigQuery instead of local CSVs.
 Use this when you have set up BigQuery (run setup_bigquery.py first).
 
 Usage:
-    set GOOGLE_APPLICATION_CREDENTIALS=C:\path\to\key.json
+    set GOOGLE_APPLICATION_CREDENTIALS=C:\\path\\to\\key.json
     set GOOGLE_CLOUD_PROJECT=your-project-id
     set EXPORTGUARD_DATASET=exportguard
     python backend/bq_main.py
@@ -156,6 +156,7 @@ def _score_to_category(score: float) -> str:
 
 
 @app.get("/")
+@app.head("/")
 def root():
     return {"service": "ExportGuard API (BigQuery)", "status": "running"}
 
