@@ -88,6 +88,7 @@ def startup():
     model_path = MODEL_DIR / "exportguard_model.pkl"
     config_path = MODEL_DIR / "model_config.json"
 
+    print(f"Looking for model at: {model_path}")
     if model_path.exists():
         try:
             import joblib
@@ -96,11 +97,16 @@ def startup():
         except Exception as e:
             print(f"Model load failed: {e}")
             model = None
+    else:
+        print(f"Model file not found at {model_path}")
 
+    print(f"Looking for config at: {config_path}")
     if config_path.exists():
         with open(config_path) as f:
             config = json.load(f)
         print(f"Config loaded from {config_path}")
+    else:
+        print(f"Config file not found at {config_path}")
 
     # Connect to BigQuery
     cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
