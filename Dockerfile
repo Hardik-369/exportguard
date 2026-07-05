@@ -9,4 +9,6 @@ RUN pip install --no-cache-dir \
     fastapi uvicorn[standard] google-cloud-bigquery \
     pandas joblib scikit-learn python-multipart
 
+RUN python -c "import zipfile; zipfile.ZipFile('model/exportguard_model.zip').extractall('model/')"
+
 CMD ["uvicorn", "bq_main:app", "--host", "0.0.0.0", "--port", "8080"]
