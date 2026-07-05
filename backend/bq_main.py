@@ -107,14 +107,15 @@ def startup():
     cred_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
     project = os.environ.get("GOOGLE_CLOUD_PROJECT", "")
 
-    # Support passing credentials as JSON string env var (Render-friendly)
-    if cred_json and not cred_path:
+    # Accept credentials as JSON string in either env var
+    raw = cred_json or cred_path
+    if raw and raw.strip().startswith("{"):
         tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
-        tmp.write(cred_json)
+        tmp.write(raw)
         tmp.close()
         cred_path = tmp.name
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cred_path
-        print(f"Wrote service account from GOOGLE_CREDENTIALS_JSON to {cred_path}")
+        print(f"Wrote service account from env var to {cred_path}")
 
     if cred_path and Path(cred_path).exists() and project:
         try:
