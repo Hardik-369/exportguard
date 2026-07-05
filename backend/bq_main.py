@@ -14,6 +14,7 @@ Usage:
 import json
 import os
 import sys
+import tempfile
 from pathlib import Path
 from typing import Optional
 
@@ -102,8 +103,18 @@ def startup():
         print(f"Config loaded from {config_path}")
 
     # Connect to BigQuery
+    cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
     cred_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "")
     project = os.environ.get("GOOGLE_CLOUD_PROJECT", "")
+
+    # Support passing credentials as JSON string env var (Render-friendly)
+    if cred_json and not cred_path:
+        tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False)
+        tmp.write(cred_json)
+        tmp.close()
+        cred_path = tmp.name
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = cred_path
+        print(f"Wrote service account from GOOGLE_CREDENTIALS_JSON to {cred_path}")
 
     if cred_path and Path(cred_path).exists() and project:
         try:
@@ -116,7 +127,7 @@ def startup():
             print(f"BigQuery connection failed: {e}")
             bq_client = None
     else:
-        print("BigQuery credentials not configured. Set GOOGLE_APPLICATION_CREDENTIALS and GOOGLE_CLOUD_PROJECT.")
+        print("BigQuery credentials not configured. Set GOOGLE_APPLICATION_CREDENTIALS or GOOGLE_CREDENTIALS_JSON.")
 
 
 def _query(sql: str, job_config=None):

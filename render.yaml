@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: exportguard-backend
+    env: docker
+    repo: https://github.com/Hardik-369/exportguard
+    branch: master
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: GOOGLE_CLOUD_PROJECT
+        value: quixotic-carver-418112
+      - key: EXPORTGUARD_DATASET
+        value: exportguard
+      - key: GOOGLE_CREDENTIALS_JSON
+        sync: false
