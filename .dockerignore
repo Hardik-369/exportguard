@@ -1,0 +1,9 @@
+node_modules
+.git
+data/raw
+frontend
+pipeline
+__pycache__
+*.pyc
+.DS_Store
+venv

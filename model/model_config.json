@@ -1,0 +1,36 @@
+{
+  "model_backend": "sklearn",
+  "feature_columns": [
+    "invoice_value_usd",
+    "payment_delay_days",
+    "political_stability_score",
+    "currency_volatility_index",
+    "trade_sanctions_flag",
+    "buyer_total_orders",
+    "buyer_total_value",
+    "buyer_avg_delay",
+    "buyer_dispute_rate",
+    "buyer_avg_invoice",
+    "buyer_paid_in_full_rate",
+    "buyer_order_rank"
+  ],
+  "test_accuracy": 0.957,
+  "score_bands": {
+    "credit_ok": {
+      "min": 0,
+      "max": 30,
+      "term": "Credit terms acceptable (net 30/60)"
+    },
+    "lc_required": {
+      "min": 30,
+      "max": 60,
+      "term": "Letter of Credit (LC) required"
+    },
+    "advance_only": {
+      "min": 60,
+      "max": 100,
+      "term": "Advance payment only"
+    }
+  },
+  "score_to_term_fn": "score_to_payment_term"
+}

@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  @apply bg-[#fef3c7] text-stone-900;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.35s ease-out; }
+
+.font-mono, .font-space {
+  font-family: 'Space Mono', monospace;
+}
+
+.btn-retro {
+  @apply px-4 py-2.5 font-bold text-sm border-[3px] border-stone-900 
+         bg-stone-900 text-white 
+         hover:bg-white hover:text-stone-900 
+         transition-colors duration-100
+         disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.btn-retro-amber {
+  @apply btn-retro bg-amber-500 text-stone-900 border-amber-600
+         hover:bg-amber-400;
+}
+
+.btn-retro-emerald {
+  @apply btn-retro bg-emerald-600 text-white border-emerald-700
+         hover:bg-emerald-500;
+}
+
+.btn-retro-rose {
+  @apply btn-retro bg-rose-600 text-white border-rose-700
+         hover:bg-rose-500;
+}
+
+.card-retro {
+  @apply bg-white border-[3px] border-stone-900;
+}
+
+.input-retro {
+  @apply w-full border-[3px] border-stone-900 px-3 py-2.5 text-sm
+         bg-stone-50 focus:bg-white focus:outline-none 
+         focus:border-amber-500 transition-colors font-mono;
+}
+
+.tag-retro {
+  @apply inline-block border-2 border-stone-900 px-2.5 py-1 text-[11px] 
+         font-bold uppercase tracking-wider;
+}
